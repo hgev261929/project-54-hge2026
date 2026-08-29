@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My 4-Week Transformation App</title>
+    <style>
+        :root {
+            --primary: #06b6d4;
+            --primary-dark: #0891b2;
+            --primary-light: #164e63;
+            --secondary: #8b5cf6;
+            --secondary-dark: #7c3aed;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --card-hover: #334155;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --success: #10b981;
+            --border: #334155;
+            --accent: #0ea5e9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        header h1 { font-size: 1.5rem; font-weight: 700; }
+        header p { font-size: 0.9rem; opacity: 0.9; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            background: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(6, 182, 212, 0.2);
+        }
+
+        .card h2 { font-size: 1.2rem; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .card h3 { font-size: 1rem; margin: 15px 0 10px; color: var(--text); }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-item input[type="checkbox"] {
+            width: 22px; height: 22px; margin-right: 15px; accent-color: var(--primary); cursor: pointer;
+        }
+        .checklist-item label { font-size: 1rem; cursor: pointer; flex: 1; }
+        .checklist-item.completed label { text-decoration: line-through; color: var(--text-light); }
+
+        .workout-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+        .toggle-btn {
+            flex: 1; padding: 12px; border: 2px solid var(--border); background: var(--card);
+            border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--text);
+        }
+        .toggle-btn.active { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: white; 
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+        }
+
+        .exercise-list { list-style: none; }
+        .exercise-list li {
+            padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem;
+        }
+        .exercise-list li:last-child { border-bottom: none; }
+        .exercise-list li strong { color: var(--primary); }
+
+        .meal-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .meal-item:last-child { border-bottom: none; }
+        .meal-item .cal { font-weight: 600; color: var(--secondary); font-size: 0.9rem; }
+
+        .macro-bar { display: flex; justify-content: space-around; text-align: center; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border); }
+        .macro-bar div span { display: block; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .macro-bar div small { color: var(--text-light); font-size: 0.8rem; }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; color: var(--text); }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;
+            background: var(--bg); color: var(--text);
+        }
+        .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1); }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; border: none; padding: 12px 24px;
+            border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+        .btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        }
+        .btn-secondary { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+
+        .progress-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--card);
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); border-top: 1px solid var(--border);
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; font-size: 0.7rem;
+            color: var(--text-light); cursor: pointer; padding: 5px 10px; border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-item.active { 
+            color: var(--primary); 
+            font-weight: 700;
+            background: rgba(6, 182, 212, 0.1);
+        }
+        .nav-item span.icon { font-size: 1.5rem; margin-bottom: 2px; }
+
+        .week-badge {
+            display: inline-block; background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: var(--primary);
+            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;
+            border: 1px solid var(--primary);
+        }
+        
+        .alert {
+            background: rgba(6, 182, 212, 0.1); 
+            border-left: 4px solid var(--primary); 
+            padding: 12px; 
+            border-radius: 8px;
+            margin-bottom: 20px; 
+            font-size: 0.9rem; 
+            color: var(--primary);
+        }
+
+        #progress-summary {
+            background: linear-gradient(135deg, var(--primary-light), rgba(139, 92, 246, 0.2));
+            border: 1px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>✨ 4-Week Transformation</h1>
+    <p>Goal: 58kg → 54kg | Tone & Sculpt</p>
+</header>
+
+<div class="container">
+    <!-- DASHBOARD TAB -->
+    <div id="dashboard" class="tab-content active">
+        <div class="card">
+            <div class="week-badge">Current Week: <span id="currentWeek">1</span> of 4</div>
+            <h2>📅 Today's Schedule</h2>
+            <p id="todaySchedule" style="color: var(--text-light); font-size: 0.95rem;"></p>
+        </div>
+
+        <div class="card">
+            <h2>✅ Daily Habits</h2>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-water" onchange="saveHabits()">
+                <label for="chk-water">Drink 2.5L Water 💧</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-calories" onchange="saveHabits()">
+                <label for="chk-calories">Stay under 1,550 kcal 🥗</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-protein" onchange="saveHabits()">
+                <label for="chk-protein">Hit 110g Protein 🍗</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-workout" onchange="saveHabits()">
+                <label for="chk-workout">Complete Workout 🏋️‍♀️</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-run" onchange="saveHabits()">
+                <label for="chk-run">Complete Run 🏃‍♀️</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="chk-sleep" onchange="saveHabits()">
+                <label for="chk-sleep">7-9 Hours Sleep 💤</label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🏃‍♀️ Running Progression</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">Follow this weekly distance goal:</p>
+            <ul style="font-size: 0.9rem; padding-left: 20px;">
+                <li><strong>Week 1:</strong> 5-6 km total (Easy pace)</li>
+                <li><strong>Week 2:</strong> 6-7 km total (Add intervals)</li>
+                <li><strong>Week 3:</strong> 7-8 km total (Moderate pace)</li>
+                <li><strong>Week 4:</strong> 8-9 km total (Push pace)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- WORKOUTS TAB -->
+    <div id="workouts" class="tab-content">
+        <div class="workout-toggle">
+            <button class="toggle-btn active" onclick="switchWorkout('home')">🏠 Home</button>
+            <button class="toggle-btn" onclick="switchWorkout('gym')">🏋️‍♀️ Gym</button>
+        </div>
+
+        <div id="home-workouts">
+            <div class="card">
+                <h2>🏠 Home Routine (5kg DBs, 6kg KB)</h2>
+                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">No lying on back! Use slow tempos (3s down, 1s up).</p>
+                
+                <h3>Day 1 & 4: Lower Body + Abs</h3>
+                <ul class="exercise-list">
+                    <li><strong>KB Goblet Squats:</strong> 4 x 15-20 reps</li>
+                    <li><strong>Bulgarian Split Squats:</strong> 3 x 12 reps/leg (Hold 5kg DBs)</li>
+                    <li><strong>Single-Leg RDLs:</strong> 3 x 12 reps/leg (Hold 6kg KB)</li>
+                    <li><strong>KB Sumo Squats:</strong> 4 x 15-20 reps</li>
+                    <li><strong>Standing Woodchoppers:</strong> 3 x 15 reps/side (Hold 5kg DB)</li>
+                    <li><strong>Standing Knee-to-Elbow:</strong> 3 x 20 reps total</li>
+                </ul>
+
+                <h3>Day 2: Back, Triceps & Core (Underarm Focus)</h3>
+                <ul class="exercise-list">
+                    <li><strong>Bent-Over DB Rows:</strong> 4 x 15 reps (Squeeze back!)</li>
+                    <li><strong>Incline Close-Grip Push-ups:</strong> 3 x AMRAP (Hands on chair)</li>
+                    <li><strong>Standing Overhead Tricep Ext:</strong> 3 x 15 reps (Hold 5kg DB)</li>
+                    <li><strong>Standing Tricep Kickbacks:</strong> 3 x 15 reps/arm</li>
+                    <li><strong>Single-Arm KB Rows:</strong> 3 x 15 reps/arm</li>
+                    <li><strong>Forearm Plank:</strong> 3 x 45-60 seconds</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="gym-workouts" style="display:none;">
+            <div class="card">
+                <h2>🏋️‍♀️ Gym Routine</h2>
+                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Focus on progressive overload. Increase weight/reps weekly.</p>
+                
+                <h3>Day 1 & 4: Lower Body + Standing Abs</h3>
+                <ul class="exercise-list">
+                    <li><strong>Cable Pull-Throughs:</strong> 4 x 12-15 reps</li>
+                    <li><strong>Leg Press:</strong> 3 x 10-12 reps (Feet high & wide)</li>
+                    <li><strong>Romanian Deadlifts:</strong> 3 x 10-12 reps</li>
+                    <li><strong>Bulgarian Split Squats:</strong> 3 x 10 reps/leg</li>
+                    <li><strong>Standing Cable Woodchoppers:</strong> 3 x 15 reps/side</li>
+                    <li><strong>Hanging Knee Raises:</strong> 3 x 12-15 reps</li>
+                </ul>
+
+                <h3>Day 2: Back, Triceps & Core (Underarm Focus)</h3>
+                <ul class="exercise-list">
+                    <li><strong>Lat Pulldowns:</strong> 4 x 10-12 reps</li>
+                    <li><strong>Seated Cable Rows:</strong> 3 x 12 reps</li>
+                    <li><strong>Cable Tricep Rope Pushdowns:</strong> 4 x 12-15 reps</li>
+                    <li><strong>Overhead Cable Tricep Ext:</strong> 3 x 12 reps</li>
+                    <li><strong>Straight-Arm Cable Pulldowns:</strong> 3 x 15 reps</li>
+                    <li><strong>Standing Cable Crunches:</strong> 3 x 15 reps</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- NUTRITION TAB -->
+    <div id="nutrition" class="tab-content">
+        <div class="card">
+            <h2>🎯 Daily Macro Targets</h2>
+            <div class="macro-bar">
+                <div><span>1,550</span><small>Calories</small></div>
+                <div><span>110g</span><small>Protein</small></div>
+                <div><span>150g</span><small>Carbs</small></div>
+                <div><span>50g</span><small>Fats</small></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🥗 Sample Meal Plan</h2>
+            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Mix and match these options daily!</p>
+            
+            <h3>Breakfast (~350 kcal | 25g P)</h3>
+            <div class="meal-item"><span>2 eggs + 1 white, 1 toast, 1/2 avocado</span></div>
+            <div class="meal-item"><span>Overnight oats (40g oats, 1 scoop protein, almond milk)</span></div>
+
+            <h3>Lunch (~450 kcal | 35g P)</h3>
+            <div class="meal-item"><span>120g chicken breast, 1/2 cup quinoa, big salad</span></div>
+            <div class="meal-item"><span>120g turkey, 1/2 cup brown rice, roasted veggies</span></div>
+
+            <h3>Dinner (~450 kcal | 30g P)</h3>
+            <div class="meal-item"><span>120g salmon/white fish, 150g sweet potato, broccoli</span></div>
+            <div class="meal-item"><span>120g lean beef/tofu, big salad, chickpeas, olive oil</span></div>
+
+            <h3>Snacks (~300 kcal | 20g P)</h3>
+            <div class="meal-item"><span>150g 0% Greek yogurt + berries</span></div>
+            <div class="meal-item"><span>1 apple + 10 almonds OR 1 protein shake</span></div>
+        </div>
+
+        <div class="alert">
+            💡 <strong>Tip:</strong> On running days, eat 1/2 banana 30 mins before your run, and add an extra 1/4 cup of rice/potato to your post-run meal!
+        </div>
+    </div>
+
+    <!-- PROGRESS TAB -->
+    <div id="progress" class="tab-content">
+        <div class="card">
+            <h2>📊 Weekly Check-In</h2>
+            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Update every Sunday morning. Data saves automatically!</p>
+            
+            <div class="input-group">
+                <label>Current Weight (kg)</label>
+                <input type="number" step="0.1" id="inp-weight" placeholder="e.g., 57.5" oninput="saveProgress()">
+            </div>
+
+            <div class="progress-grid">
+                <div class="input-group">
+                    <label>Waist (cm)</label>
+                    <input type="number" step="0.1" id="inp-waist" placeholder="cm" oninput="saveProgress()">
+                </div>
+                <div class="input-group">
+                    <label>Hips (cm)</label>
+                    <input type="number" step="0.1" id="inp-hips" placeholder="cm" oninput="saveProgress()">
+                </div>
+                <div class="input-group">
+                    <label>Thigh (cm)</label>
+                    <input type="number" step="0.1" id="inp-thigh" placeholder="cm" oninput="saveProgress()">
+                </div>
+                <div class="input-group">
+                    <label>Arm (cm)</label>
+                    <input type="number" step="0.1" id="inp-arm" placeholder="cm" oninput="saveProgress()">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Weekly Notes / How do you feel?</label>
+                <textarea id="inp-notes" rows="3" placeholder="Energy levels, clothes fit, etc." oninput="saveProgress()"></textarea>
+            </div>
+
+            <div id="progress-summary" style="margin-top:15px; padding:15px; border-radius:10px; text-align:center;">
+                <p style="font-size:0.9rem; color:var(--primary);">Start: <strong>58.0 kg</strong> | Goal: <strong>54.0 kg</strong></p>
+                <p style="font-size:1.2rem; font-weight:700; color:var(--primary); margin-top:5px;">Lost: <span id="weight-lost">0.0</span> kg to go!</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📸 Progress Photos Reminder</h2>
+            <p style="font-size:0.9rem;">Don't forget to take front, side, and back photos in the same lighting and outfit every 2 weeks!</p>
+            <button class="btn btn-secondary" style="margin-top:15px;" onclick="alert('Remember: Same time, same lighting, same outfit! 📸')">Set Photo Reminder</button>
+        </div>
+    </div>
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav>
+    <div class="nav-item active" onclick="switchTab('dashboard', this)">
+        <span class="icon">🏠</span> Home
+    </div>
+    <div class="nav-item" onclick="switchTab('workouts', this)">
+        <span class="icon">💪</span> Workouts
+    </div>
+    <div class="nav-item" onclick="switchTab('nutrition', this)">
+        <span class="icon">🥗</span> Nutrition
+    </div>
+    <div class="nav-item" onclick="switchTab('progress', this)">
+        <span class="icon">📊</span> Progress
+    </div>
+</nav>
+
+<script>
+    // --- NAVIGATION ---
+    function switchTab(tabId, element) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        element.classList.add('active');
+    }
+
+    // --- WORKOUT TOGGLE ---
+    function switchWorkout(type) {
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('home-workouts').style.display = type === 'home' ? 'block' : 'none';
+        document.getElementById('gym-workouts').style.display = type === 'gym' ? 'block' : 'none';
+    }
+
+    // --- LOCAL STORAGE MANAGEMENT ---
+    function saveData(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+    function loadData(key, defaultValue) {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : defaultValue;
+    }
+
+    // --- DAILY HABITS ---
+    function saveHabits() {
+        const today = new Date().toDateString();
+        const habits = {
+            water: document.getElementById('chk-water').checked,
+            calories: document.getElementById('chk-calories').checked,
+            protein: document.getElementById('chk-protein').checked,
+            workout: document.getElementById('chk-workout').checked,
+            run: document.getElementById('chk-run').checked,
+            sleep: document.getElementById('chk-sleep').checked
+        };
+        saveData('habits_' + today, habits);
+        updateChecklistUI(habits);
+    }
+
+    function loadHabits() {
+        const today = new Date().toDateString();
+        const habits = loadData('habits_' + today, {});
+        document.getElementById('chk-water').checked = habits.water || false;
+        document.getElementById('chk-calories').checked = habits.calories || false;
+        document.getElementById('chk-protein').checked = habits.protein || false;
+        document.getElementById('chk-workout').checked = habits.workout || false;
+        document.getElementById('chk-run').checked = habits.run || false;
+        document.getElementById('chk-sleep').checked = habits.sleep || false;
+        updateChecklistUI(habits);
+    }
+
+    function updateChecklistUI(habits) {
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+        });
+    }
+
+    // --- PROGRESS TRACKER ---
+    function saveProgress() {
+        const progress = {
+            weight: document.getElementById('inp-weight').value,
+            waist: document.getElementById('inp-waist').value,
+            hips: document.getElementById('inp-hips').value,
+            thigh: document.getElementById('inp-thigh').value,
+            arm: document.getElementById('inp-arm').value,
+            notes: document.getElementById('inp-notes').value
+        };
+        saveData('progress_data', progress);
+        updateProgressSummary();
+    }
+
+    function loadProgress() {
+        const progress = loadData('progress_data', {});
+        document.getElementById('inp-weight').value = progress.weight || '';
+        document.getElementById('inp-waist').value = progress.waist || '';
+        document.getElementById('inp-hips').value = progress.hips || '';
+        document.getElementById('inp-thigh').value = progress.thigh || '';
+        document.getElementById('inp-arm').value = progress.arm || '';
+        document.getElementById('inp-notes').value = progress.notes || '';
+        updateProgressSummary();
+    }
+
+    function updateProgressSummary() {
+        const startWeight = 58.0;
+        const goalWeight = 54.0;
+        const currentWeight = parseFloat(document.getElementById('inp-weight').value) || startWeight;
+        
+        let lost = startWeight - currentWeight;
+        let toGo = currentWeight - goalWeight;
+        
+        if (toGo < 0) toGo = 0;
+        
+        document.getElementById('weight-lost').textContent = toGo.toFixed(1);
+        
+        if (toGo === 0) {
+            document.getElementById('weight-lost').parentElement.innerHTML = '🎉 <span style="color:var(--success)">GOAL REACHED!</span> 🎉';
+        }
+    }
+
+    // --- SCHEDULE GENERATOR ---
+    function setSchedule() {
+        const day = new Date().getDay(); // 0=Sun, 1=Mon...
+        const schedule = {
+            0: "Sunday: Run Day! 🏃‍♀️ (Steady pace, check weekly distance goal)",
+            1: "Monday: Lower Body + Abs 🍑 (Gym or Home)",
+            2: "Tuesday: Run Day! 🏃‍♀️ (Intervals: 1 min fast, 1-2 min slow)",
+            3: "Wednesday: Back, Triceps & Core 💪 (Underarm focus!)",
+            4: "Thursday: Run Day! 🏃‍♀️ (Easy/Moderate pace)",
+            5: "Friday: Lower Body + Abs 🍑 (Gym or Home)",
+            6: "Saturday: Active Rest / Light Walk 🚶‍♀️"
+        };
+        document.getElementById('todaySchedule').innerText = schedule[day];
+    }
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHabits();
+        loadProgress();
+        setSchedule();
+    });
+</script>
+
+</body>
+</html>
