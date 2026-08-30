@@ -18,309 +18,112 @@
             --text-light: #94a3b8;
             --success: #10b981;
             --border: #334155;
-            --accent: #0ea5e9;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --muscle: #f472b6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding-bottom: 80px;
-        }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px; }
 
         header {
             background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100;
             box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
         }
-
         header h1 { font-size: 1.5rem; font-weight: 700; }
         header p { font-size: 0.9rem; opacity: 0.9; }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-
         .tab-content { display: none; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-            transition: all 0.3s;
+            background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid var(--border); transition: all 0.3s;
         }
-
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(6, 182, 212, 0.2);
-        }
-
+        .card:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 8px 16px rgba(6, 182, 212, 0.2); }
         .card h2 { font-size: 1.2rem; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
         .card h3 { font-size: 1rem; margin: 15px 0 10px; color: var(--text); }
 
-        /* Reminder List Styles */
         .reminder-list { list-style: none; }
-        .reminder-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
+        .reminder-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
         .reminder-item:last-child { border-bottom: none; }
-        .reminder-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        .reminder-text strong {
-            display: block;
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-        .reminder-text span {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
+        .reminder-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .reminder-text strong { display: block; color: var(--text); font-size: 0.95rem; }
+        .reminder-text span { font-size: 0.85rem; color: var(--text-light); }
 
-        /* Daily Targets Blueprint */
-        .targets-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .target-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-        }
-        .target-card .value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .target-card .label {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
-        .target-card.calories {
-            grid-column: span 2;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
-            border-color: var(--primary);
-        }
-        .target-card.calories .value {
-            font-size: 2rem;
-            color: var(--secondary);
-        }
+        .targets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .target-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center; }
+        .target-card .value { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        .target-card .label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+        .target-card.calories { grid-column: span 2; background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1)); border-color: var(--primary); }
+        .target-card.calories .value { font-size: 2rem; color: var(--secondary); }
 
-        .workout-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-        .toggle-btn {
-            flex: 1; padding: 12px; border: 2px solid var(--border); background: var(--card);
-            border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--text);
+        .exercise-item {
+            background: var(--bg); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 4px solid var(--primary);
         }
-        .toggle-btn.active { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white; 
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+        .exercise-item h4 { color: var(--primary); font-size: 1.05rem; margin-bottom: 5px; }
+        .exercise-item .reps { color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px; }
+        .exercise-item .muscles-worked {
+            background: rgba(244, 114, 182, 0.1); border: 1px solid var(--muscle); border-radius: 8px; padding: 10px; margin-bottom: 10px;
         }
-
-        .exercise-list { list-style: none; }
-        .exercise-list li {
-            padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem;
-        }
-        .exercise-list li:last-child { border-bottom: none; }
-        .exercise-list li strong { color: var(--primary); }
-        .exercise-list li .tip {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--warning);
-            margin-top: 4px;
-            font-style: italic;
-        }
-
-        .meal-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
-        .meal-item:last-child { border-bottom: none; }
+        .exercise-item .muscles-worked strong { color: var(--muscle); display: block; margin-bottom: 5px; font-size: 0.85rem; }
+        .exercise-item .muscle-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .exercise-item .muscle-tag { background: var(--muscle); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+        .exercise-item .tip { font-size: 0.85rem; color: var(--warning); font-style: italic; margin-bottom: 10px; }
 
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; color: var(--text); }
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;
-            background: var(--bg); color: var(--text);
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--bg); color: var(--text);
         }
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { 
-            outline: none; 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1); 
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; border: none; padding: 12px 24px;
-            border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
-        .btn-secondary { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+        .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1); }
 
         .progress-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         nav {
             position: fixed; bottom: 0; left: 0; right: 0; background: var(--card);
             display: flex; justify-content: space-around; padding: 10px 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); border-top: 1px solid var(--border);
-            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); border-top: 1px solid var(--border); z-index: 100;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; font-size: 0.7rem;
-            color: var(--text-light); cursor: pointer; padding: 5px 10px; border-radius: 8px;
-            transition: all 0.2s;
+            color: var(--text-light); cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: all 0.2s;
         }
         .nav-item.active { color: var(--primary); font-weight: 700; background: rgba(6, 182, 212, 0.1); }
         .nav-item span.icon { font-size: 1.5rem; margin-bottom: 2px; }
 
         .week-badge {
             display: inline-block; background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-            color: var(--primary);
-            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;
-            border: 1px solid var(--primary);
+            color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; border: 1px solid var(--primary);
         }
         
-        .alert {
-            background: rgba(6, 182, 212, 0.1); 
-            border-left: 4px solid var(--primary); 
-            padding: 12px; 
-            border-radius: 8px;
-            margin-bottom: 20px; 
-            font-size: 0.9rem; 
-            color: var(--primary);
-        }
+        .workout-log { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 15px; }
+        .workout-log textarea { width: 100%; min-height: 100px; background: transparent; border: none; color: var(--text); font-size: 0.9rem; resize: vertical; }
 
-        .workout-log {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 15px;
-        }
+        #progress-summary { background: linear-gradient(135deg, var(--primary-light), rgba(139, 92, 246, 0.2)); border: 1px solid var(--primary); }
 
-        .workout-log textarea {
-            width: 100%;
-            min-height: 100px;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 0.9rem;
-            resize: vertical;
+        .goal-highlight {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(139, 92, 246, 0.2));
+            border: 2px solid var(--muscle); border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center;
         }
+        .goal-highlight h3 { color: var(--muscle); margin-bottom: 8px; font-size: 1.1rem; }
+        .goal-highlight p { font-size: 0.9rem; color: var(--text-light); }
 
-        #progress-summary {
-            background: linear-gradient(135deg, var(--primary-light), rgba(139, 92, 246, 0.2));
-            border: 1px solid var(--primary);
-        }
+        .meal-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .meal-item:last-child { border-bottom: none; }
 
-        /* Calorie Tracker Styles */
-        .food-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+        .schedule-item {
+            display: flex; align-items: center; gap: 15px; padding: 12px;
+            background: var(--bg); border-radius: 10px; margin-bottom: 10px; border-left: 4px solid var(--primary);
         }
-        .food-input-group input { flex: 1; }
-        .food-input-group button { width: auto; padding: 12px 20px; }
-
-        .food-list { margin-top: 15px; }
-
-        .food-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: var(--bg);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--primary);
-        }
-        .food-item-info { flex: 1; }
-        .food-item-name { font-weight: 600; color: var(--text); }
-        .food-item-macros { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
-        .food-item-cal { font-weight: 700; color: var(--primary); margin-right: 10px; }
-        .food-item-delete {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .daily-totals {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid var(--border);
-        }
-        .total-box {
-            background: var(--bg);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .total-box .value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        .total-box .label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
-        .total-box .target { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
-        .total-box.over { border: 2px solid var(--danger); }
-        .total-box.over .value { color: var(--danger); }
-        .total-box.good { border: 2px solid var(--success); }
-        .total-box.good .value { color: var(--success); }
-
-        .quick-add {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        .quick-add-btn {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .quick-add-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
-        .macro-progress { margin-top: 10px; background: var(--bg); border-radius: 10px; padding: 12px; }
-        .macro-progress-item { margin-bottom: 10px; }
-        .macro-progress-item:last-child { margin-bottom: 0; }
-        .macro-progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; }
-        .macro-progress-bar { height: 8px; background: var(--card); border-radius: 4px; overflow: hidden; }
-        .macro-progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 4px; transition: width 0.3s; }
-        .macro-progress-fill.over { background: var(--danger); }
-
-        .empty-state { text-align: center; padding: 30px; color: var(--text-light); }
-        .empty-state-icon { font-size: 3rem; margin-bottom: 10px; }
+        .schedule-item.run { border-left-color: var(--success); }
+        .schedule-item.rest { border-left-color: var(--warning); }
+        .schedule-item .day { font-weight: 700; color: var(--text); min-width: 80px; }
+        .schedule-item .activity { color: var(--text-light); font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -339,128 +142,126 @@
             <p id="todaySchedule" style="color: var(--text-light); font-size: 0.95rem; font-weight: 500;"></p>
         </div>
 
-        <div class="card">
-            <h2>💡 Daily Reminders</h2>
-            <ul class="reminder-list">
-                <li class="reminder-item">
-                    <span class="reminder-icon">💧</span>
-                    <div class="reminder-text">
-                        <strong>Hydration Goal</strong>
-                        <span>Drink at least 2.5 Liters of water today. Keep a bottle with you!</span>
-                    </div>
-                </li>
-                <li class="reminder-item">
-                    <span class="reminder-icon">💤</span>
-                    <div class="reminder-text">
-                        <strong>Recovery is Key</strong>
-                        <span>Aim for 7-9 hours of sleep tonight. Muscles grow while you rest.</span>
-                    </div>
-                </li>
-                <li class="reminder-item">
-                    <span class="reminder-icon">🍗</span>
-                    <div class="reminder-text">
-                        <strong>Protein Priority</strong>
-                        <span>Don't forget your 110g protein goal to tone those muscles!</span>
-                    </div>
-                </li>
-                <li class="reminder-item">
-                    <span class="reminder-icon">🏃‍♀️</span>
-                    <div class="reminder-text">
-                        <strong>Running Fuel</strong>
-                        <span>If running today, eat 1/2 banana 30 mins before your workout.</span>
-                    </div>
-                </li>
-                <li class="reminder-item">
-                    <span class="reminder-icon">📸</span>
-                    <div class="reminder-text">
-                        <strong>Sunday Check-in</strong>
-                        <span>Take your progress photos and measurements every Sunday morning!</span>
-                    </div>
-                </li>
-            </ul>
+        <div class="goal-highlight">
+            <h3>🎯 Your Toning Goals</h3>
+            <p>Butt & Thighs | Underarms | Back Definition</p>
         </div>
 
         <div class="card">
-            <h2>🏃‍♀️ Running Progression</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 10px;">Follow this weekly distance goal:</p>
-            <ul style="font-size: 0.9rem; padding-left: 20px;">
-                <li><strong>Week 1:</strong> 5-6 km total (Easy pace)</li>
-                <li><strong>Week 2:</strong> 6-7 km total (Add intervals)</li>
-                <li><strong>Week 3:</strong> 7-8 km total (Moderate pace)</li>
-                <li><strong>Week 4:</strong> 8-9 km total (Push pace)</li>
+            <h2> Daily Reminders</h2>
+            <ul class="reminder-list">
+                <li class="reminder-item">
+                    <span class="reminder-icon"></span>
+                    <div class="reminder-text"><strong>Hydration Goal</strong><span>Drink at least 2.5 Liters of water today.</span></div>
+                </li>
+                <li class="reminder-item">
+                    <span class="reminder-icon">💤</span>
+                    <div class="reminder-text"><strong>Recovery is Key</strong><span>Aim for 7-9 hours of sleep. Muscles grow while you rest!</span></div>
+                </li>
+                <li class="reminder-item">
+                    <span class="reminder-icon">🍗</span>
+                    <div class="reminder-text"><strong>Protein Priority</strong><span>Hit your 110g protein goal to tone those muscles.</span></div>
+                </li>
             </ul>
         </div>
     </div>
 
     <!-- WORKOUTS TAB -->
     <div id="workouts" class="tab-content">
-        <div class="workout-toggle">
-            <button class="toggle-btn active" onclick="switchWorkout('home')">🏠 Home</button>
-            <button class="toggle-btn" onclick="switchWorkout('gym')">🏋️‍♀️ Gym</button>
-        </div>
+        <div class="card">
+            <h2>🏋️‍♀️ 3-Day Full Body Gym Routine</h2>
+            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Do this exact routine on your 3 Gym days (e.g., Mon, Wed, Fri). It hits every muscle you want to tone!</p>
 
-        <div id="home-workouts">
-            <div class="card">
-                <h2>🏠 Home Routine (5kg DBs, 6kg KB)</h2>
-                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">No lying on back! Use slow tempos (3s down, 1s up).</p>
-                
-                <h3>Day 1 & 4: Lower Body + Abs</h3>
-                <ul class="exercise-list">
-                    <li><strong>KB Goblet Squats:</strong> 4 x 15-20 reps</li>
-                    <li><strong>Bulgarian Split Squats:</strong> 3 x 12 reps/leg (Hold 5kg DBs)</li>
-                    <li><strong>Single-Leg RDLs:</strong> 3 x 12 reps/leg (Hold 6kg KB)</li>
-                    <li><strong>KB Sumo Squats:</strong> 4 x 15-20 reps</li>
-                    <li><strong>Standing Woodchoppers:</strong> 3 x 15 reps/side (Hold 5kg DB)</li>
-                    <li><strong>Standing Knee-to-Elbow:</strong> 3 x 20 reps total</li>
-                </ul>
+            <div class="exercise-item">
+                <h4>1. Leg Press</h4>
+                <div class="reps">3 sets x 10-12 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Glutes</span><span class="muscle-tag">Quads</span><span class="muscle-tag">Hamstrings</span></div></div>
+                <div class="tip">💡 Place feet HIGH and WIDE for glute focus. Keep knees at 90° at the bottom.</div>
+            </div>
 
-                <h3>Day 2: Back, Triceps & Core (Underarm Focus)</h3>
-                <ul class="exercise-list">
-                    <li><strong>Bent-Over DB Rows:</strong> 4 x 15 reps (Squeeze back!)</li>
-                    <li><strong>Incline Close-Grip Push-ups:</strong> 3 x AMRAP (Hands on chair)</li>
-                    <li><strong>Standing Overhead Tricep Ext:</strong> 3 x 15 reps (Hold 5kg DB)</li>
-                    <li><strong>Standing Tricep Kickbacks:</strong> 3 x 15 reps/arm</li>
-                    <li><strong>Single-Arm KB Rows:</strong> 3 x 15 reps/arm</li>
-                    <li><strong>Forearm Plank:</strong> 3 x 45-60 seconds</li>
-                </ul>
+            <div class="exercise-item">
+                <h4>2. Adductor Machine</h4>
+                <div class="reps">3 sets x 15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Inner Thighs</span><span class="muscle-tag">Adductors</span></div></div>
+                <div class="tip">💡 Inner thigh toning. Squeeze legs together and hold for 1 second at the peak.</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>3. Abductor Machine</h4>
+                <div class="reps">3 sets x 15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Outer Thighs</span><span class="muscle-tag">Gluteus Medius</span></div></div>
+                <div class="tip">💡 Outer thigh & butt shaping. Push legs outward against resistance.</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>4. Seated Leg Curl</h4>
+                <div class="reps">3 sets x 12-15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Hamstrings</span><span class="muscle-tag">Back of Thighs</span></div></div>
+                <div class="tip">💡 Hamstring focus. Curl the pad backward toward your glutes, squeeze at the top.</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>5. Leg Extension</h4>
+                <div class="reps">3 sets x 12-15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Quadriceps</span><span class="muscle-tag">Front of Thighs</span></div></div>
+                <div class="tip"> Quadriceps focus. Extend legs fully forward, squeeze quads at the top.</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>6. Tricep Rope Press Down</h4>
+                <div class="reps">3 sets x 12-15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Underarms</span></div></div>
+                <div class="tip">💡 Keep elbows glued to ribs, pull rope apart at bottom. Targets underarms!</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>7. Tricep Extension (Overhead)</h4>
+                <div class="reps">3 sets x 12-15 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps (Long Head)</span><span class="muscle-tag">Underarm Area</span></div></div>
+                <div class="tip">💡 Targets the "underarm jiggle" area directly. Keep elbows close to head.</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>8. Seated Low Row</h4>
+                <div class="reps">3 sets x 10-12 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Lats</span><span class="muscle-tag">Middle Back</span><span class="muscle-tag">Rear Delts</span></div></div>
+                <div class="tip">⚠️ Lower weight, focus on pulling shoulder blades together. Builds back to tighten underarms!</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>9. Lat Pulldown</h4>
+                <div class="reps">3 sets x 10-12 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Latissimus Dorsi</span><span class="muscle-tag">Wide Back</span></div></div>
+                <div class="tip">⚠️ Drop the weight! Aim for 10-12 reps, not 5. Pull bar to upper chest, squeeze lats!</div>
+            </div>
+
+            <div class="exercise-item">
+                <h4>10. Chin Dip (Assisted)</h4>
+                <div class="reps">3 sets x 8-12 reps</div>
+                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Chest</span><span class="muscle-tag">Shoulders</span></div></div>
+                <div class="tip">💡 Use assisted machine if needed. Lower body by bending elbows, then push back up.</div>
+            </div>
+
+            <div class="workout-log">
+                <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text);">📝 Log Today's Workout</label>
+                <textarea id="workout-notes" placeholder="e.g., Leg Press: 40kg x 12 reps, Lat Pulldown: 25kg x 10 reps..." oninput="saveWorkoutLog()"></textarea>
             </div>
         </div>
 
-        <div id="gym-workouts" style="display:none;">
-            <div class="card">
-                <h2>🏋️‍♀️ My Gym Routine</h2>
-                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Focus on form and rep ranges. No lying on your back!</p>
-                
-                <h3>🍑 Lower Body (Glute & Thigh Focus)</h3>
-                <ul class="exercise-list">
-                    <li><strong>Leg Press:</strong> 3 x 10-12 reps <span class="tip">💡 Place feet HIGH and WIDE on platform for glute focus</span></li>
-                    <li><strong>Adductor Machine:</strong> 3 x 15 reps <span class="tip">💡 Inner thigh toning</span></li>
-                    <li><strong>Abductor Machine:</strong> 3 x 15 reps <span class="tip">💡 Outer thigh & butt shaping</span></li>
-                    <li><strong>Seated Leg Curl:</strong> 3 x 12-15 reps <span class="tip">💡 Hamstring focus, squeeze at the top</span></li>
-                    <li><strong>Cable Pull-Throughs:</strong> 3 x 12-15 reps <span class="tip">💡 Great glute activation without lying down!</span></li>
-                </ul>
-
-                <h3>💪 Back & Underarms (Triceps)</h3>
-                <ul class="exercise-list">
-                    <li><strong>Lat Pulldowns:</strong> 3 x 10-12 reps <span class="tip">⚠️ Drop the weight! Aim for 10-12 reps, not 5. Squeeze lats!</span></li>
-                    <li><strong>Seated Low Row:</strong> 3 x 10-12 reps <span class="tip">⚠️ Lower weight, focus on pulling shoulder blades together</span></li>
-                    <li><strong>Tricep Rope Press-down:</strong> 3 x 12-15 reps <span class="tip">💡 Keep elbows glued to ribs, pull rope apart at bottom</span></li>
-                    <li><strong>Overhead Tricep Extension:</strong> 3 x 12-15 reps <span class="tip">💡 Targets the "underarm" area directly</span></li>
-                    <li><strong>Chest Dips (or Bench Dips):</strong> 3 x 8-12 reps <span class="tip">💡 Use assisted machine if needed</span></li>
-                </ul>
-
-                <div class="workout-log">
-                    <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text);">📝 Log Today's Workout</label>
-                    <textarea id="workout-notes" placeholder="e.g., Leg Press: 40kg x 12 reps, Lat Pulldown: 25kg x 10 reps..." oninput="saveWorkoutLog()"></textarea>
-                </div>
-            </div>
+        <div class="card">
+            <h2>🏃‍♀️ Weekly Schedule Overview</h2>
+            <div class="schedule-item"><div class="day">Mon</div><div class="activity">Gym - Full Body </div></div>
+            <div class="schedule-item run"><div class="day">Tue</div><div class="activity">Run Day 🏃♀️</div></div>
+            <div class="schedule-item"><div class="day">Wed</div><div class="activity">Gym - Full Body 💪</div></div>
+            <div class="schedule-item rest"><div class="day">Thu</div><div class="activity">Brisk Walk or Rest 🚶‍♀️</div></div>
+            <div class="schedule-item"><div class="day">Fri</div><div class="activity">Gym - Full Body 💪</div></div>
+            <div class="schedule-item run"><div class="day">Sat</div><div class="activity">Run Day 🏃‍♀️</div></div>
+            <div class="schedule-item run"><div class="day">Sun</div><div class="activity">Run OR Sauna 🧖‍♀️ + Check-in 📊</div></div>
         </div>
     </div>
 
     <!-- NUTRITION TAB -->
     <div id="nutrition" class="tab-content">
-        
-        <!-- NEW: CLEAR DAILY TARGETS SECTION -->
         <div class="card">
             <h2>🎯 Your Daily Targets</h2>
             <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Keep these numbers in mind to reach 54kg and tone up!</p>
@@ -485,66 +286,24 @@
         </div>
 
         <div class="card">
-            <h2>🍽️ Daily Calorie Tracker</h2>
-            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Type your food and I'll calculate it automatically!</p>
+            <h2>🥗 Meal Ideas to Hit Targets</h2>
+            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Mix and match these options daily!</p>
             
-            <div class="food-input-group">
-                <input type="text" id="food-input" placeholder="e.g., 3 eggs, 1 spoon kewpie..." onkeypress="handleEnter(event)">
-                <button class="btn" onclick="addFood()">Add</button>
-            </div>
+            <h3>Breakfast (~350 kcal | 25g P)</h3>
+            <div class="meal-item"><span>2 eggs + 1 white, 1 toast, 1/2 avocado</span></div>
+            <div class="meal-item"><span>Overnight oats (40g oats, 1 scoop protein, almond milk)</span></div>
 
-            <div class="quick-add">
-                <span style="font-size:0.85rem; color:var(--text-light); width:100%; margin-bottom:5px;">Quick Add:</span>
-                <button class="quick-add-btn" onclick="quickAdd('1 egg')">🥚 Egg</button>
-                <button class="quick-add-btn" onclick="quickAdd('1 slice bread')">🍞 Bread</button>
-                <button class="quick-add-btn" onclick="quickAdd('100g chicken breast')">🍗 Chicken</button>
-                <button class="quick-add-btn" onclick="quickAdd('100g rice cooked')">🍚 Rice</button>
-                <button class="quick-add-btn" onclick="quickAdd('100ml milk')">🥛 Milk</button>
-                <button class="quick-add-btn" onclick="quickAdd('1 spoon kewpie')">🥄 Kewpie</button>
-                <button class="quick-add-btn" onclick="quickAdd('1 scoop protein powder')">💪 Protein</button>
-                <button class="quick-add-btn" onclick="quickAdd('1 apple')">🍎 Apple</button>
-                <button class="quick-add-btn" onclick="quickAdd('1 banana')">🍌 Banana</button>
-            </div>
+            <h3>Lunch (~450 kcal | 35g P)</h3>
+            <div class="meal-item"><span>120g chicken breast, 1/2 cup quinoa, big salad</span></div>
+            <div class="meal-item"><span>120g turkey, 1/2 cup brown rice, roasted veggies</span></div>
 
-            <div id="food-list" class="food-list"></div>
+            <h3>Dinner (~450 kcal | 30g P)</h3>
+            <div class="meal-item"><span>120g salmon/white fish, 150g sweet potato, broccoli</span></div>
+            <div class="meal-item"><span>120g lean beef/tofu, big salad, chickpeas, olive oil</span></div>
 
-            <div class="macro-progress">
-                <div class="macro-progress-item">
-                    <div class="macro-progress-label"><span>Calories</span><span id="cal-progress-text">0 / 1550</span></div>
-                    <div class="macro-progress-bar"><div class="macro-progress-fill" id="cal-progress" style="width: 0%"></div></div>
-                </div>
-                <div class="macro-progress-item">
-                    <div class="macro-progress-label"><span>Protein</span><span id="protein-progress-text">0g / 110g</span></div>
-                    <div class="macro-progress-bar"><div class="macro-progress-fill" id="protein-progress" style="width: 0%"></div></div>
-                </div>
-                <div class="macro-progress-item">
-                    <div class="macro-progress-label"><span>Carbs</span><span id="carbs-progress-text">0g / 150g</span></div>
-                    <div class="macro-progress-bar"><div class="macro-progress-fill" id="carbs-progress" style="width: 0%"></div></div>
-                </div>
-                <div class="macro-progress-item">
-                    <div class="macro-progress-label"><span>Fat</span><span id="fat-progress-text">0g / 50g</span></div>
-                    <div class="macro-progress-bar"><div class="macro-progress-fill" id="fat-progress" style="width: 0%"></div></div>
-                </div>
-            </div>
-
-            <div class="daily-totals">
-                <div class="total-box" id="total-cal-box">
-                    <div class="value" id="total-calories">0</div>
-                    <div class="label">Calories</div>
-                </div>
-                <div class="total-box" id="total-protein-box">
-                    <div class="value" id="total-protein">0g</div>
-                    <div class="label">Protein</div>
-                </div>
-                <div class="total-box" id="total-carbs-box">
-                    <div class="value" id="total-carbs">0g</div>
-                    <div class="label">Carbs</div>
-                </div>
-                <div class="total-box" id="total-fat-box">
-                    <div class="value" id="total-fat">0g</div>
-                    <div class="label">Fat</div>
-                </div>
-            </div>
+            <h3>Snacks (~300 kcal | 20g P)</h3>
+            <div class="meal-item"><span>150g 0% Greek yogurt + berries</span></div>
+            <div class="meal-item"><span>1 apple + 10 almonds OR 1 protein shake</span></div>
         </div>
     </div>
 
@@ -596,44 +355,6 @@
 </nav>
 
 <script>
-    // --- FOOD DATABASE ---
-    const foodDatabase = {
-        'egg': { calories: 70, protein: 6, carbs: 0.6, fat: 5, unit: 'piece' },
-        'eggs': { calories: 70, protein: 6, carbs: 0.6, fat: 5, unit: 'piece' },
-        'bread': { calories: 80, protein: 3, carbs: 15, fat: 1, unit: 'slice' },
-        'slice bread': { calories: 80, protein: 3, carbs: 15, fat: 1, unit: 'slice' },
-        'chicken breast': { calories: 165, protein: 31, carbs: 0, fat: 3.6, unit: '100g' },
-        'rice': { calories: 130, protein: 2.7, carbs: 28, fat: 0.3, unit: '100g' },
-        'rice cooked': { calories: 130, protein: 2.7, carbs: 28, fat: 0.3, unit: '100g' },
-        'milk': { calories: 42, protein: 3.4, carbs: 5, fat: 1, unit: '100ml' },
-        'kewpie': { calories: 70, protein: 0.5, carbs: 0.5, fat: 7, unit: 'spoon' },
-        'kewpie dressing': { calories: 70, protein: 0.5, carbs: 0.5, fat: 7, unit: 'spoon' },
-        'protein powder': { calories: 120, protein: 24, carbs: 3, fat: 1, unit: 'scoop' },
-        'scoop protein powder': { calories: 120, protein: 24, carbs: 3, fat: 1, unit: 'scoop' },
-        'apple': { calories: 52, protein: 0.3, carbs: 14, fat: 0.2, unit: 'piece' },
-        'banana': { calories: 89, protein: 1.1, carbs: 23, fat: 0.3, unit: 'piece' },
-        'almonds': { calories: 57, protein: 2.1, carbs: 2, fat: 5, unit: 'piece' },
-        'salmon': { calories: 208, protein: 20, carbs: 0, fat: 13, unit: '100g' },
-        'tofu': { calories: 76, protein: 8, carbs: 1.9, fat: 4.8, unit: '100g' },
-        'oats': { calories: 389, protein: 16.9, carbs: 66, fat: 6.9, unit: '100g' },
-        'greek yogurt': { calories: 59, protein: 10, carbs: 3.6, fat: 0.4, unit: '100g' },
-        'yogurt': { calories: 59, protein: 10, carbs: 3.6, fat: 0.4, unit: '100g' },
-        'avocado': { calories: 160, protein: 2, carbs: 8.5, fat: 14.7, unit: '100g' },
-        'sweet potato': { calories: 86, protein: 1.6, carbs: 20, fat: 0.1, unit: '100g' },
-        'broccoli': { calories: 34, protein: 2.8, carbs: 7, fat: 0.4, unit: '100g' },
-        'quinoa': { calories: 120, protein: 4.4, carbs: 21, fat: 1.9, unit: '100g' },
-        'quinoa cooked': { calories: 120, protein: 4.4, carbs: 21, fat: 1.9, unit: '100g' },
-        'peanut butter': { calories: 94, protein: 3.6, carbs: 3.4, fat: 8, unit: 'spoon' },
-        'olive oil': { calories: 119, protein: 0, carbs: 0, fat: 13.5, unit: 'spoon' },
-        'milo': { calories: 75, protein: 1, carbs: 14, fat: 1.5, unit: 'spoon' },
-        'dark chocolate': { calories: 60, protein: 0.8, carbs: 7, fat: 4, unit: 'square' },
-        'tuna': { calories: 132, protein: 28, carbs: 0, fat: 1, unit: '100g' },
-        'turkey': { calories: 135, protein: 30, carbs: 0, fat: 0.7, unit: '100g' }
-    };
-
-    let todayFood = [];
-
-    // --- NAVIGATION ---
     function switchTab(tabId, element) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -641,19 +362,9 @@
         element.classList.add('active');
     }
 
-    // --- WORKOUT TOGGLE ---
-    function switchWorkout(type) {
-        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        document.getElementById('home-workouts').style.display = type === 'home' ? 'block' : 'none';
-        document.getElementById('gym-workouts').style.display = type === 'gym' ? 'block' : 'none';
-    }
-
-    // --- LOCAL STORAGE ---
     function saveData(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
     function loadData(key, defaultValue) { const data = localStorage.getItem(key); return data ? JSON.parse(data) : defaultValue; }
 
-    // --- WORKOUT LOG ---
     function saveWorkoutLog() {
         const today = new Date().toDateString();
         saveData('workout_log_' + today, document.getElementById('workout-notes').value);
@@ -663,112 +374,6 @@
         document.getElementById('workout-notes').value = loadData('workout_log_' + today, '');
     }
 
-    // --- CALORIE TRACKER ---
-    function handleEnter(event) { if (event.key === 'Enter') addFood(); }
-    function quickAdd(food) { document.getElementById('food-input').value = food; addFood(); }
-
-    function parseFoodInput(input) {
-        input = input.toLowerCase().trim();
-        for (let key in foodDatabase) {
-            if (input.includes(key)) {
-                const numberMatch = input.match(/(\d+\.?\d*)/);
-                const quantity = numberMatch ? parseFloat(numberMatch[1]) : 1;
-                const foodData = foodDatabase[key];
-                let multiplier = (foodData.unit === '100g' || foodData.unit === '100ml') ? quantity / 100 : quantity;
-                
-                return {
-                    name: input,
-                    calories: Math.round(foodData.calories * multiplier),
-                    protein: Math.round(foodData.protein * multiplier * 10) / 10,
-                    carbs: Math.round(foodData.carbs * multiplier * 10) / 10,
-                    fat: Math.round(foodData.fat * multiplier * 10) / 10
-                };
-            }
-        }
-        return null;
-    }
-
-    function addFood() {
-        const input = document.getElementById('food-input');
-        const foodText = input.value.trim();
-        if (!foodText) return;
-        
-        const foodData = parseFoodInput(foodText);
-        if (foodData) {
-            todayFood.push({ id: Date.now(), name: foodData.name, ...foodData });
-            saveTodayFood(); renderFoodList(); updateTotals();
-            input.value = '';
-        } else {
-            alert('Food not found. Try: eggs, bread, chicken, rice, milk, kewpie, etc.');
-        }
-    }
-
-    function deleteFood(id) {
-        todayFood = todayFood.filter(item => item.id !== id);
-        saveTodayFood(); renderFoodList(); updateTotals();
-    }
-
-    function saveTodayFood() { saveData('food_' + new Date().toDateString(), todayFood); }
-    function loadTodayFood() {
-        todayFood = loadData('food_' + new Date().toDateString(), []);
-        renderFoodList(); updateTotals();
-    }
-
-    function renderFoodList() {
-        const listContainer = document.getElementById('food-list');
-        if (todayFood.length === 0) {
-            listContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🍽️</div><p>No food logged yet today</p></div>`;
-            return;
-        }
-        listContainer.innerHTML = todayFood.map(item => `
-            <div class="food-item">
-                <div class="food-item-info">
-                    <div class="food-item-name">${item.name}</div>
-                    <div class="food-item-macros">P: ${item.protein}g | C: ${item.carbs}g | F: ${item.fat}g</div>
-                </div>
-                <div class="food-item-cal">${item.calories} kcal</div>
-                <button class="food-item-delete" onclick="deleteFood(${item.id})">X</button>
-            </div>
-        `).join('');
-    }
-
-    function updateTotals() {
-        const totals = todayFood.reduce((acc, item) => ({
-            calories: acc.calories + item.calories, protein: acc.protein + item.protein,
-            carbs: acc.carbs + item.carbs, fat: acc.fat + item.fat
-        }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
-        
-        document.getElementById('total-calories').textContent = totals.calories;
-        document.getElementById('total-protein').textContent = Math.round(totals.protein) + 'g';
-        document.getElementById('total-carbs').textContent = Math.round(totals.carbs) + 'g';
-        document.getElementById('total-fat').textContent = Math.round(totals.fat) + 'g';
-        
-        updateProgressBar('cal', totals.calories, 1550);
-        updateProgressBar('protein', totals.protein, 110);
-        updateProgressBar('carbs', totals.carbs, 150);
-        updateProgressBar('fat', totals.fat, 50);
-        
-        updateBoxColor('total-cal-box', totals.calories, 1550);
-        updateBoxColor('total-protein-box', totals.protein, 110);
-        updateBoxColor('total-carbs-box', totals.carbs, 150);
-        updateBoxColor('total-fat-box', totals.fat, 50);
-    }
-
-    function updateProgressBar(type, current, target) {
-        const percentage = Math.min((current / target) * 100, 100);
-        document.getElementById(type + '-progress').style.width = percentage + '%';
-        document.getElementById(type + '-progress-text').textContent = `${Math.round(current)} / ${target}${type === 'cal' ? '' : 'g'}`;
-        document.getElementById(type + '-progress').classList.toggle('over', current > target);
-    }
-
-    function updateBoxColor(boxId, current, target) {
-        const box = document.getElementById(boxId);
-        box.classList.remove('over', 'good');
-        if (current > target) box.classList.add('over');
-        else if (current >= target * 0.8) box.classList.add('good');
-    }
-
-    // --- PROGRESS TRACKER ---
     function saveProgress() {
         const progress = {
             weight: document.getElementById('inp-weight').value, waist: document.getElementById('inp-waist').value,
@@ -799,26 +404,23 @@
         }
     }
 
-    // --- SCHEDULE ---
     function setSchedule() {
         const day = new Date().getDay();
         const schedule = {
-            0: "Sunday: Run Day! 🏃‍♀️ (Steady pace) + Weekly Check-in 📊",
-            1: "Monday: Lower Body + Back & Triceps 🍑💪 (Gym or Home)",
-            2: "Tuesday: Run Day! 🏃‍♀️ (Intervals: 1 min fast, 1-2 min slow)",
-            3: "Wednesday: Rest or Light Activity 🚶‍♀️",
-            4: "Thursday: Run Day! 🏃‍♀️ (Easy/Moderate pace)",
-            5: "Friday: Lower Body + Back & Triceps 🍑💪 (Gym or Home)",
-            6: "Saturday: Active Rest / Light Walk 🚶‍♀️"
+            0: "Sunday: Run OR Sauna for Recovery 🧖‍♀️ + Weekly Check-in 📊",
+            1: "Monday: Gym - Full Body Workout (All 10 exercises) 🏋️‍♀️",
+            2: "Tuesday: Run Day! 🏃‍♀️ (Intervals or steady pace)",
+            3: "Wednesday: Gym - Full Body Workout (All 10 exercises) ️‍♀️",
+            4: "Thursday: Brisk Walk or Complete Rest 🚶‍♀️",
+            5: "Friday: Gym - Full Body Workout (All 10 exercises) 🏋️‍♀️",
+            6: "Saturday: Run Day! 🏃‍♀️ (Enjoy your run!)"
         };
         document.getElementById('todaySchedule').innerText = schedule[day];
     }
 
-    // --- INIT ---
     document.addEventListener('DOMContentLoaded', () => {
         loadProgress();
         loadWorkoutLog();
-        loadTodayFood();
         setSchedule();
     });
 </script>
