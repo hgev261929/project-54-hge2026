@@ -124,6 +124,8 @@
         .schedule-item.rest { border-left-color: var(--warning); }
         .schedule-item .day { font-weight: 700; color: var(--text); min-width: 80px; }
         .schedule-item .activity { color: var(--text-light); font-size: 0.9rem; }
+
+        .save-indicator { font-size: 0.75rem; color: var(--text-light); margin-top: 6px; min-height: 1em; }
     </style>
 </head>
 <body>
@@ -169,82 +171,175 @@
     <!-- WORKOUTS TAB -->
     <div id="workouts" class="tab-content">
         <div class="card">
-            <h2>🏋️‍♀️ 3-Day Full Body Gym Routine</h2>
-            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Do this exact routine on your 3 Gym days (e.g., Mon, Wed, Fri). It hits every muscle you want to tone!</p>
-
-            <div class="exercise-item">
-                <h4>1. Leg Press</h4>
-                <div class="reps">3 sets x 10-12 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Glutes</span><span class="muscle-tag">Quads</span><span class="muscle-tag">Hamstrings</span></div></div>
-                <div class="tip">💡 Place feet HIGH and WIDE for glute focus. Keep knees at 90° at the bottom.</div>
+            <div style="display:flex; gap:8px; margin-bottom:15px;">
+                <div id="btn-gym" class="workout-mode-btn active" onclick="switchWorkoutMode('gym')" style="flex:1; text-align:center; padding:10px; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.9rem; background:var(--primary); color:#0f172a;">🏋️ Gym</div>
+                <div id="btn-home" class="workout-mode-btn" onclick="switchWorkoutMode('home')" style="flex:1; text-align:center; padding:10px; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.9rem; background:var(--bg); color:var(--text-light); border:1px solid var(--border);">🏠 Home (Dumbbell + Kettlebell)</div>
             </div>
 
-            <div class="exercise-item">
-                <h4>2. Adductor Machine</h4>
-                <div class="reps">3 sets x 15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Inner Thighs</span><span class="muscle-tag">Adductors</span></div></div>
-                <div class="tip">💡 Inner thigh toning. Squeeze legs together and hold for 1 second at the peak.</div>
+            <!-- GYM ROUTINE -->
+            <div id="gym-routine">
+                <h2>🏋️‍♀️ 3-Day Full Body Gym Routine</h2>
+                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Do this exact routine on your 3 Gym days (e.g., Mon, Wed, Fri). It hits every muscle you want to tone!</p>
+
+                <h3 style="color:var(--primary);">🦵 Lower Body</h3>
+
+                <div class="exercise-item">
+                    <h4>1. Leg Press <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 10-12 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Glutes</span><span class="muscle-tag">Quads</span><span class="muscle-tag">Hamstrings</span></div></div>
+                    <div class="tip">💡 Place feet HIGH and WIDE for glute focus. Keep knees at 90° at the bottom.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>2. Adductor Machine <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Inner Thighs</span><span class="muscle-tag">Adductors</span></div></div>
+                    <div class="tip">💡 Inner thigh toning. Squeeze legs together and hold for 1 second at the peak.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>3. Abductor Machine <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Outer Thighs</span><span class="muscle-tag">Gluteus Medius</span></div></div>
+                    <div class="tip">💡 Outer thigh & butt shaping. Push legs outward against resistance.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>4. Seated Leg Curl <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Hamstrings</span><span class="muscle-tag">Back of Thighs</span></div></div>
+                    <div class="tip">💡 Hamstring focus. Curl the pad backward toward your glutes, squeeze at the top.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>5. Leg Extension <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Quadriceps</span><span class="muscle-tag">Front of Thighs</span></div></div>
+                    <div class="tip">💡 Quadriceps focus. Extend legs fully forward, squeeze quads at the top.</div>
+                </div>
+
+                <h3 style="color:var(--secondary);">💪 Upper Body</h3>
+
+                <div class="exercise-item">
+                    <h4>6. Tricep Rope Press Down <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Underarms</span></div></div>
+                    <div class="tip">💡 Keep elbows glued to ribs, pull rope apart at bottom. Targets underarms!</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>7. Tricep Extension (Overhead) <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps (Long Head)</span><span class="muscle-tag">Underarm Area</span></div></div>
+                    <div class="tip">💡 Targets the "underarm jiggle" area directly. Keep elbows close to head.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>8. Seated Low Row <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 10-12 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Lats</span><span class="muscle-tag">Middle Back</span><span class="muscle-tag">Rear Delts</span></div></div>
+                    <div class="tip">⚠️ Lower weight, focus on pulling shoulder blades together. Builds back to tighten underarms!</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>9. Lat Pulldown <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 10-12 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Latissimus Dorsi</span><span class="muscle-tag">Wide Back</span></div></div>
+                    <div class="tip">⚠️ Drop the weight! Aim for 10-12 reps, not 5. Pull bar to upper chest, squeeze lats!</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>10. Chin Dip (Assisted) <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 8-12 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Chest</span><span class="muscle-tag">Shoulders</span></div></div>
+                    <div class="tip">💡 Use assisted machine if needed. Lower body by bending elbows, then push back up.</div>
+                </div>
             </div>
 
-            <div class="exercise-item">
-                <h4>3. Abductor Machine</h4>
-                <div class="reps">3 sets x 15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Outer Thighs</span><span class="muscle-tag">Gluteus Medius</span></div></div>
-                <div class="tip">💡 Outer thigh & butt shaping. Push legs outward against resistance.</div>
-            </div>
+            <!-- HOME ROUTINE -->
+            <div id="home-routine" style="display:none;">
+                <h2>🏠 Home Routine (2x 5kg Dumbbells + 6kg Kettlebell)</h2>
+                <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Same target muscles as your gym day, adapted for home equipment. Do this on gym days if you can't make it to the gym.</p>
 
-            <div class="exercise-item">
-                <h4>4. Seated Leg Curl</h4>
-                <div class="reps">3 sets x 12-15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Hamstrings</span><span class="muscle-tag">Back of Thighs</span></div></div>
-                <div class="tip">💡 Hamstring focus. Curl the pad backward toward your glutes, squeeze at the top.</div>
-            </div>
+                <h3 style="color:var(--primary);">🦵 Lower Body</h3>
 
-            <div class="exercise-item">
-                <h4>5. Leg Extension</h4>
-                <div class="reps">3 sets x 12-15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Quadriceps</span><span class="muscle-tag">Front of Thighs</span></div></div>
-                <div class="tip"> Quadriceps focus. Extend legs fully forward, squeeze quads at the top.</div>
-            </div>
+                <div class="exercise-item">
+                    <h4>1. Kettlebell Goblet Squat <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Glutes</span><span class="muscle-tag">Quads</span><span class="muscle-tag">Hamstrings</span></div></div>
+                    <div class="tip">💡 Hold the 6kg kettlebell at chest height, feet shoulder-width. Sit back and down, drive through heels.</div>
+                </div>
 
-            <div class="exercise-item">
-                <h4>6. Tricep Rope Press Down</h4>
-                <div class="reps">3 sets x 12-15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Underarms</span></div></div>
-                <div class="tip">💡 Keep elbows glued to ribs, pull rope apart at bottom. Targets underarms!</div>
-            </div>
+                <div class="exercise-item">
+                    <h4>2. Dumbbell Sumo Squat <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Inner Thighs</span><span class="muscle-tag">Adductors</span></div></div>
+                    <div class="tip">💡 Wide stance, toes turned out, hold one dumbbell with both hands. Replaces the adductor machine.</div>
+                </div>
 
-            <div class="exercise-item">
-                <h4>7. Tricep Extension (Overhead)</h4>
-                <div class="reps">3 sets x 12-15 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps (Long Head)</span><span class="muscle-tag">Underarm Area</span></div></div>
-                <div class="tip">💡 Targets the "underarm jiggle" area directly. Keep elbows close to head.</div>
-            </div>
+                <div class="exercise-item">
+                    <h4>3. Side-Lying Leg Raises <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 15-20 reps/side</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Outer Thighs</span><span class="muscle-tag">Gluteus Medius</span></div></div>
+                    <div class="tip">💡 Lie on your side, lift top leg slowly. Add a dumbbell across the thigh once bodyweight feels easy. Replaces the abductor machine.</div>
+                </div>
 
-            <div class="exercise-item">
-                <h4>8. Seated Low Row</h4>
-                <div class="reps">3 sets x 10-12 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Lats</span><span class="muscle-tag">Middle Back</span><span class="muscle-tag">Rear Delts</span></div></div>
-                <div class="tip">⚠️ Lower weight, focus on pulling shoulder blades together. Builds back to tighten underarms!</div>
-            </div>
+                <div class="exercise-item">
+                    <h4>4. Kettlebell Romanian Deadlift <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Hamstrings</span><span class="muscle-tag">Glutes</span></div></div>
+                    <div class="tip">💡 Hold kettlebell with both hands, soft knees, hinge at hips and lower until you feel a hamstring stretch. Replaces seated leg curl.</div>
+                </div>
 
-            <div class="exercise-item">
-                <h4>9. Lat Pulldown</h4>
-                <div class="reps">3 sets x 10-12 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Latissimus Dorsi</span><span class="muscle-tag">Wide Back</span></div></div>
-                <div class="tip">⚠️ Drop the weight! Aim for 10-12 reps, not 5. Pull bar to upper chest, squeeze lats!</div>
-            </div>
+                <div class="exercise-item">
+                    <h4>5. Dumbbell Reverse Lunge <span class="muscle-tag" style="background:var(--primary); margin-left:6px;">Lower Body</span></h4>
+                    <div class="reps">3 sets x 10-12 reps/leg</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Quadriceps</span><span class="muscle-tag">Front of Thighs</span></div></div>
+                    <div class="tip">💡 One dumbbell in each hand, step back into a lunge. Replaces leg extension for quad focus.</div>
+                </div>
 
-            <div class="exercise-item">
-                <h4>10. Chin Dip (Assisted)</h4>
-                <div class="reps">3 sets x 8-12 reps</div>
-                <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Chest</span><span class="muscle-tag">Shoulders</span></div></div>
-                <div class="tip">💡 Use assisted machine if needed. Lower body by bending elbows, then push back up.</div>
+                <h3 style="color:var(--secondary);">💪 Upper Body</h3>
+
+                <div class="exercise-item">
+                    <h4>6. Dumbbell Tricep Kickback <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Underarms</span></div></div>
+                    <div class="tip">💡 Hinge forward, elbow pinned to your side, extend the dumbbell straight back. Replaces tricep rope press down.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>7. Overhead Dumbbell Tricep Extension <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps (Long Head)</span><span class="muscle-tag">Underarm Area</span></div></div>
+                    <div class="tip">💡 Hold one dumbbell with both hands overhead, lower behind head, keep elbows close to ears. Same underarm target as the gym version.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>8. Dumbbell Bent-Over Row <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Lats</span><span class="muscle-tag">Middle Back</span><span class="muscle-tag">Rear Delts</span></div></div>
+                    <div class="tip">⚠️ Hinge at hips, flat back, row both dumbbells to your ribs. Replaces seated low row.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>9. Kettlebell Pullover <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 12-15 reps</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Latissimus Dorsi</span><span class="muscle-tag">Wide Back</span></div></div>
+                    <div class="tip">💡 Lying on your back (or on a bench/two chairs), lower the kettlebell behind your head with straight-ish arms, pull back over chest. Replaces lat pulldown.</div>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>10. Renegade Row <span class="muscle-tag" style="background:var(--secondary); margin-left:6px;">Upper Body</span></h4>
+                    <div class="reps">3 sets x 8-10 reps/side</div>
+                    <div class="muscles-worked"><strong>💪 Muscles Toned:</strong><div class="muscle-tags"><span class="muscle-tag">Triceps</span><span class="muscle-tag">Back</span><span class="muscle-tag">Shoulders</span></div></div>
+                    <div class="tip">💡 In a plank with hands on dumbbells, row one at a time while keeping hips square. Replaces chin dip. Drop to knees if needed.</div>
+                </div>
             </div>
 
             <div class="workout-log">
                 <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text);">📝 Log Today's Workout</label>
                 <textarea id="workout-notes" placeholder="e.g., Leg Press: 40kg x 12 reps, Lat Pulldown: 25kg x 10 reps..." oninput="saveWorkoutLog()"></textarea>
+                <div class="save-indicator" id="workout-save-indicator"></div>
             </div>
         </div>
 
@@ -299,7 +394,7 @@
 
             <h3>Dinner (~450 kcal | 30g P)</h3>
             <div class="meal-item"><span>120g salmon/white fish, 150g sweet potato, broccoli</span></div>
-            <div class="meal-item"><span>120g lean beef/tofu, big salad, chickpeas, olive oil</span></div>
+            <div class="meal-item"><span>120g grilled chicken thigh (skinless), big salad, chickpeas, olive oil</span></div>
 
             <h3>Snacks (~300 kcal | 20g P)</h3>
             <div class="meal-item"><span>150g 0% Greek yogurt + berries</span></div>
@@ -311,7 +406,7 @@
     <div id="progress" class="tab-content">
         <div class="card">
             <h2>📊 Weekly Check-In</h2>
-            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Update every Sunday morning. Data saves automatically!</p>
+            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:15px;">Update every Sunday morning. Your entries are saved automatically.</p>
             
             <div class="input-group">
                 <label>Current Weight (kg)</label>
@@ -329,6 +424,7 @@
                 <label>Weekly Notes / How do you feel?</label>
                 <textarea id="inp-notes" rows="3" placeholder="Energy levels, clothes fit, etc." oninput="saveProgress()"></textarea>
             </div>
+            <div class="save-indicator" id="progress-save-indicator"></div>
 
             <div id="progress-summary" style="margin-top:15px; padding:15px; border-radius:10px; text-align:center;">
                 <p style="font-size:0.9rem; color:var(--primary);">Start: <strong>58.0 kg</strong> | Goal: <strong>54.0 kg</strong></p>
@@ -355,6 +451,24 @@
 </nav>
 
 <script>
+    function switchWorkoutMode(mode) {
+        const gymEl = document.getElementById('gym-routine');
+        const homeEl = document.getElementById('home-routine');
+        const gymBtn = document.getElementById('btn-gym');
+        const homeBtn = document.getElementById('btn-home');
+        if (mode === 'gym') {
+            gymEl.style.display = '';
+            homeEl.style.display = 'none';
+            gymBtn.style.background = 'var(--primary)'; gymBtn.style.color = '#0f172a'; gymBtn.style.border = 'none';
+            homeBtn.style.background = 'var(--bg)'; homeBtn.style.color = 'var(--text-light)'; homeBtn.style.border = '1px solid var(--border)';
+        } else {
+            gymEl.style.display = 'none';
+            homeEl.style.display = '';
+            homeBtn.style.background = 'var(--primary)'; homeBtn.style.color = '#0f172a'; homeBtn.style.border = 'none';
+            gymBtn.style.background = 'var(--bg)'; gymBtn.style.color = 'var(--text-light)'; gymBtn.style.border = '1px solid var(--border)';
+        }
+    }
+
     function switchTab(tabId, element) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -362,30 +476,64 @@
         element.classList.add('active');
     }
 
-    function saveData(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
-    function loadData(key, defaultValue) { const data = localStorage.getItem(key); return data ? JSON.parse(data) : defaultValue; }
+    // --- Persistent storage helpers (uses window.storage instead of localStorage) ---
+    async function saveData(key, value) {
+        try {
+            await window.storage.set(key, JSON.stringify(value), false);
+            return true;
+        } catch (e) {
+            console.error('Storage save failed:', e);
+            return false;
+        }
+    }
+    async function loadData(key, defaultValue) {
+        try {
+            const result = await window.storage.get(key, false);
+            return result ? JSON.parse(result.value) : defaultValue;
+        } catch (e) {
+            return defaultValue;
+        }
+    }
 
+    function flashIndicator(elId, text) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.textContent = text;
+        clearTimeout(el._timeout);
+        el._timeout = setTimeout(() => { el.textContent = ''; }, 1500);
+    }
+
+    let workoutSaveTimer;
     function saveWorkoutLog() {
-        const today = new Date().toDateString();
-        saveData('workout_log_' + today, document.getElementById('workout-notes').value);
+        clearTimeout(workoutSaveTimer);
+        workoutSaveTimer = setTimeout(async () => {
+            const today = new Date().toDateString();
+            const ok = await saveData('workout_log_' + today, document.getElementById('workout-notes').value);
+            flashIndicator('workout-save-indicator', ok ? 'Saved ✓' : 'Save failed');
+        }, 500);
     }
-    function loadWorkoutLog() {
+    async function loadWorkoutLog() {
         const today = new Date().toDateString();
-        document.getElementById('workout-notes').value = loadData('workout_log_' + today, '');
+        document.getElementById('workout-notes').value = await loadData('workout_log_' + today, '');
     }
 
+    let progressSaveTimer;
     function saveProgress() {
-        const progress = {
-            weight: document.getElementById('inp-weight').value, waist: document.getElementById('inp-waist').value,
-            hips: document.getElementById('inp-hips').value, thigh: document.getElementById('inp-thigh').value,
-            arm: document.getElementById('inp-arm').value, notes: document.getElementById('inp-notes').value
-        };
-        saveData('progress_data', progress);
+        clearTimeout(progressSaveTimer);
+        progressSaveTimer = setTimeout(async () => {
+            const progress = {
+                weight: document.getElementById('inp-weight').value, waist: document.getElementById('inp-waist').value,
+                hips: document.getElementById('inp-hips').value, thigh: document.getElementById('inp-thigh').value,
+                arm: document.getElementById('inp-arm').value, notes: document.getElementById('inp-notes').value
+            };
+            const ok = await saveData('progress_data', progress);
+            flashIndicator('progress-save-indicator', ok ? 'Saved ✓' : 'Save failed');
+        }, 500);
         updateProgressSummary();
     }
 
-    function loadProgress() {
-        const progress = loadData('progress_data', {});
+    async function loadProgress() {
+        const progress = await loadData('progress_data', {});
         document.getElementById('inp-weight').value = progress.weight || '';
         document.getElementById('inp-waist').value = progress.waist || '';
         document.getElementById('inp-hips').value = progress.hips || '';
@@ -398,9 +546,12 @@
     function updateProgressSummary() {
         const currentWeight = parseFloat(document.getElementById('inp-weight').value) || 58.0;
         let toGo = Math.max(0, currentWeight - 54.0);
-        document.getElementById('weight-lost').textContent = toGo.toFixed(1);
-        if (toGo === 0) {
-            document.getElementById('weight-lost').parentElement.innerHTML = '🎉 <span style="color:var(--success)">GOAL REACHED!</span> 🎉';
+        const summaryEl = document.getElementById('weight-lost');
+        if (summaryEl) {
+            summaryEl.textContent = toGo.toFixed(1);
+            if (toGo === 0) {
+                summaryEl.parentElement.innerHTML = '🎉 <span style="color:var(--success)">GOAL REACHED!</span> 🎉';
+            }
         }
     }
 
